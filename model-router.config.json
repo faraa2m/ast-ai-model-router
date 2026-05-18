@@ -20,5 +20,27 @@
       "planning": "gpt-5.5"
     }
   },
+  "modelMappings": {
+    "claude": {
+      "haiku": "claude-haiku-4-5",
+      "sonnet": "claude-sonnet-4-6",
+      "opus": "claude-opus-4-7",
+      "opusplan": "claude-opus-4-7"
+    },
+    "codex": {
+      "gpt-5.4-mini": "gpt-5-mini",
+      "gpt-5.4": "gpt-5",
+      "gpt-5.5": "gpt-5",
+      "codex-mini-latest": "codex-mini-latest"
+    }
+  },
+  "policy": {
+    "maxTier": "planning",
+    "maxCostUsd": null
+  },
+  "logging": {
+    "enabled": false,
+    "path": ".model-router/decisions.jsonl"
+  },
   "overrides": []
 }

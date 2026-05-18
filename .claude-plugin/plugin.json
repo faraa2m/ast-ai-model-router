@@ -1,7 +1,7 @@
 {
   "name": "ast-ai-model-router",
-  "version": "0.1.0",
-  "description": "AST-aware Claude and Codex model routing for cost-conscious coding tasks.",
+  "version": "1.0.0",
+  "description": "AST-based Claude Code and Codex model routing with token-cost estimates and CI policy checks.",
   "author": {
     "name": "Faraazuddin Mohammed",
     "email": "opensource@faraa2m.dev",
@@ -11,11 +11,14 @@
   "repository": "https://github.com/faraa2m/ast-ai-model-router",
   "license": "MIT",
   "keywords": [
+    "ai-coding-agent",
     "token-economics",
+    "llm-cost-optimization",
     "model-router",
     "claude-code",
     "codex",
-    "ast"
+    "ast",
+    "ci"
   ],
   "skills": "./skills/"
 }

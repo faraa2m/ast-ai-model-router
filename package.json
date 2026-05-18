@@ -1,7 +1,7 @@
 {
   "name": "@ast-ai-model-router/cli",
   "version": "0.1.1",
-  "description": "AST-aware Claude and Codex model router for cost-conscious coding tasks.",
+  "description": "AST-based Claude Code and Codex model router with token-cost estimates, CI policy checks, and explainable AI coding-agent model selection.",
   "type": "module",
   "bin": {
     "ast-ai-model-router": "bin/ast-ai-model-router.js",
@@ -28,12 +28,20 @@
   },
   "keywords": [
     "llm",
+    "ai-coding-agent",
     "token-economics",
+    "llm-cost-optimization",
     "model-router",
+    "model-selection",
     "claude-code",
+    "claude-code-model-router",
     "codex",
+    "codex-cli",
+    "codex-model-router",
     "ast",
-    "prompt-cost"
+    "prompt-cost",
+    "developer-tools",
+    "ci"
   ],
   "author": {
     "name": "Faraazuddin Mohammed",
@@ -51,7 +59,8 @@
     "provenance": true
   },
   "dependencies": {
-    "@babel/parser": "^7.28.5"
+    "@babel/parser": "^7.28.5",
+    "@tokenometer/core": "^1.1.0"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0"
