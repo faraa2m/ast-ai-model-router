@@ -1,6 +1,6 @@
 {
   "name": "@ast-ai-model-router/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AST-aware Claude and Codex model router for cost-conscious coding tasks.",
   "type": "module",
   "bin": {
@@ -54,12 +54,9 @@
     "@babel/parser": "^7.28.5"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.7"
+    "@changesets/cli": "^2.31.0"
   },
   "engines": {
     "node": ">=20"
-  },
-  "devDependencies": {
-    "@changesets/cli": "^2.31.0"
   }
 }
