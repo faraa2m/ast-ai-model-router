@@ -4,21 +4,24 @@
   "description": "AST-aware Claude and Codex model router for cost-conscious coding tasks.",
   "type": "module",
   "bin": {
-    "ast-ai-model-router": "./bin/ast-ai-model-router.js",
-    "model-router": "./bin/ast-ai-model-router.js"
+    "ast-ai-model-router": "bin/ast-ai-model-router.js",
+    "model-router": "bin/ast-ai-model-router.js"
   },
   "files": [
     "bin/",
     "lib/",
     "scripts/",
     "skills/",
+    ".claude-plugin/",
     ".codex-plugin/",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
     "test": "node --test",
-    "lint": "node --check bin/ast-ai-model-router.js && node --check lib/*.js && node --check lib/parsers/*.js"
+    "lint": "node --check bin/ast-ai-model-router.js && node --check lib/*.js && node --check lib/parsers/*.js",
+    "pack:dry-run": "npm publish --dry-run --registry=https://registry.npmjs.org --cache=.npm-cache",
+    "publish:local": "npm publish --registry=https://registry.npmjs.org --cache=.npm-cache --provenance --access public"
   },
   "keywords": [
     "llm",
@@ -39,6 +42,11 @@
     "url": "git+https://github.com/faraa2m/ast-ai-model-router.git"
   },
   "homepage": "https://github.com/faraa2m/ast-ai-model-router#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public",
+    "provenance": true
+  },
   "dependencies": {
     "@babel/parser": "^7.28.5"
   },
