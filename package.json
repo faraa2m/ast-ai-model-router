@@ -1,0 +1,48 @@
+{
+  "name": "ast-ai-model-router",
+  "version": "0.1.0",
+  "description": "AST-aware Claude and Codex model router for cost-conscious coding tasks.",
+  "type": "module",
+  "bin": {
+    "ast-ai-model-router": "./bin/ast-ai-model-router.js",
+    "model-router": "./bin/ast-ai-model-router.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "scripts/",
+    "skills/",
+    ".codex-plugin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check bin/ast-ai-model-router.js && node --check lib/*.js && node --check lib/parsers/*.js"
+  },
+  "keywords": [
+    "llm",
+    "token-economics",
+    "model-router",
+    "claude-code",
+    "codex",
+    "ast",
+    "prompt-cost"
+  ],
+  "author": {
+    "name": "Faraazuddin Mohammed",
+    "url": "https://github.com/faraa2m"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faraa2m/ast-ai-model-router.git"
+  },
+  "homepage": "https://github.com/faraa2m/ast-ai-model-router#readme",
+  "dependencies": {
+    "@babel/parser": "^7.28.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
