@@ -1,0 +1,68 @@
+name: Release
+
+# Changesets-driven release automation for @ast-ai-model-router/cli.
+#
+# Flow:
+#   1. Feature PRs include a .changeset/*.md file for user-visible changes.
+#   2. When those PRs merge to main, this workflow opens/updates a
+#      "Version Packages" PR that bumps package.json and writes CHANGELOG.md.
+#   3. Merging the Version Packages PR runs this workflow again with no
+#      pending changesets, so Changesets publishes @ast-ai-model-router/cli
+#      to npm and creates the GitHub Release.
+#
+# npm auth:
+#   This repo currently supports NPM_TOKEN because the secret is configured.
+#   For parity with routerlab/promptc, you can later replace token auth with
+#   npm Trusted Publisher OIDC for @ast-ai-model-router/cli.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  release:
+    name: Open Version PR or publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Run Changesets
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: npm run changeset:version
+          publish: npm run changeset:publish
+          commit: "chore(release): version packages"
+          title: "chore(release): version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"

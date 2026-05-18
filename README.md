@@ -13,7 +13,7 @@ This project is part of the [`faraa2m`](https://github.com/faraa2m) token econom
 ## Install
 
 ```bash
-npm install -g ast-ai-model-router
+npm install -g @ast-ai-model-router/cli
 ```
 
 For local development:

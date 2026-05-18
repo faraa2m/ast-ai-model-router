@@ -1,5 +1,5 @@
 {
-  "name": "ast-ai-model-router",
+  "name": "@ast-ai-model-router/cli",
   "version": "0.1.0",
   "description": "AST-aware Claude and Codex model router for cost-conscious coding tasks.",
   "type": "module",
@@ -20,6 +20,9 @@
   "scripts": {
     "test": "node --test",
     "lint": "node --check bin/ast-ai-model-router.js && node --check lib/*.js && node --check lib/parsers/*.js",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish",
     "pack:dry-run": "npm publish --dry-run --registry=https://registry.npmjs.org --cache=.npm-cache",
     "publish:local": "npm publish --registry=https://registry.npmjs.org --cache=.npm-cache --provenance --access public"
   },
@@ -50,7 +53,13 @@
   "dependencies": {
     "@babel/parser": "^7.28.5"
   },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.7"
+  },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0"
   }
 }
