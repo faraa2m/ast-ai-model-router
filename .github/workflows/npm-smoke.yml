@@ -1,0 +1,44 @@
+name: npm smoke
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * 1"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/npm-smoke.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Install and run published package
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Show published version
+        run: npm view @ast-ai-model-router/cli version --registry=https://registry.npmjs.org
+
+      - name: Smoke test help command
+        run: |
+          npx --yes --package @ast-ai-model-router/cli@latest \
+            ast-ai-model-router --help
+
+      - name: Smoke test analyzer JSON
+        run: |
+          OUTPUT=$(npx --yes --package @ast-ai-model-router/cli@latest \
+            ast-ai-model-router analyze --agent claude --task "write docs" --json)
+          echo "$OUTPUT"
+          OUTPUT="$OUTPUT" node -e '
+            const data = JSON.parse(process.env.OUTPUT);
+            if (data.agent !== "claude") throw new Error("agent mismatch");
+            if (!data.selectedModel) throw new Error("missing selectedModel");
+            if (!data.tier) throw new Error("missing tier");
+          '
