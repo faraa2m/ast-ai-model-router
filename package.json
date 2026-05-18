@@ -1,6 +1,6 @@
 {
   "name": "@ast-ai-model-router/cli",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "AST-based Claude Code and Codex model router with token-cost estimates, CI policy checks, and explainable AI coding-agent model selection.",
   "type": "module",
   "bin": {
