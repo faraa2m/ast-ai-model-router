@@ -5,6 +5,7 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { CONFIG_TEMPLATE, loadConfig, validateTier } from "../lib/config.js";
 import { createDecision, maybeLogDecision } from "../lib/decision.js";
+import { runGateway } from "../lib/gateway.js";
 import { formatUsd } from "../lib/policy.js";
 
 const HELP = `ast-ai-model-router
@@ -15,6 +16,7 @@ Usage:
   ast-ai-model-router ci --agent claude|codex --task "deploy change" [--max-tier complex]
   ast-ai-model-router run claude --task "refactor parser" -- [extra claude args]
   ast-ai-model-router run codex --task "write tests" -- [extra codex args]
+  ast-ai-model-router gateway claude|codex [--once --task "write docs"] -- [extra agent args]
   ast-ai-model-router init [--cwd <path>] [--force]
 
 Options:
@@ -26,6 +28,7 @@ Options:
   --max-cost-usd <n>   Policy ceiling when cost estimate is available
   --log                Append a local JSONL decision record
   --dry-run            For run: print the command instead of launching
+  --once               For gateway: route one --task prompt and exit
   --refresh-models     Refresh Codex model catalog cache
 `;
 
@@ -135,6 +138,39 @@ async function main() {
       process.exit(1);
     });
     return;
+  }
+
+  if (command === "gateway" || command === "intercept") {
+    const agent = assertAgent(maybeAgent);
+    const split = rest.indexOf("--");
+    const optionArgs = split === -1 ? rest : rest.slice(0, split);
+    const passthrough = split === -1 ? [] : rest.slice(split + 1);
+    const { values } = parseArgs({
+      args: optionArgs,
+      options: {
+        task: { type: "string" },
+        cwd: { type: "string" },
+        log: { type: "boolean" },
+        once: { type: "boolean" },
+        "max-tier": { type: "string" },
+        "max-cost-usd": { type: "string" },
+        "dry-run": { type: "boolean" },
+        "refresh-models": { type: "boolean" }
+      }
+    });
+    if (values.once && !values.task) throw new Error("--task is required with --once.");
+    const exitCode = await runGateway({
+      agent,
+      cwd: values.cwd ?? process.cwd(),
+      log: Boolean(values.log),
+      dryRun: Boolean(values["dry-run"]),
+      refreshModels: Boolean(values["refresh-models"]),
+      maxTier: values["max-tier"] ? validateTier(values["max-tier"], "--max-tier") : undefined,
+      maxCostUsd: parseOptionalNumber(values["max-cost-usd"], "--max-cost-usd"),
+      passthrough,
+      onceTask: values.once ? values.task : undefined
+    });
+    process.exit(exitCode);
   }
 
   throw new Error(`Unknown command: ${command}`);
