@@ -43,7 +43,23 @@ ast-ai-model-router run codex --task "<task>" -- <codex args>
 ast-ai-model-router run claude --task "<task>" -- <claude args>
 ```
 
-5. Explain the selected model in token-economics terms: simple tasks should use faster/cheaper models; complex migrations, security-sensitive work, and architecture planning should use stronger models.
+5. If the user wants every new prompt routed independently, use the gateway:
+
+```bash
+ast-ai-model-router gateway codex -- <codex args>
+```
+
+```bash
+ast-ai-model-router gateway claude -- <claude args>
+```
+
+For a single routed turn:
+
+```bash
+ast-ai-model-router gateway codex --once --task "<task>" -- <codex args>
+```
+
+6. Explain the selected model in token-economics terms: simple tasks should use faster/cheaper models; complex migrations, security-sensitive work, and architecture planning should use stronger models.
 
 ## Notes
 
@@ -51,3 +67,4 @@ ast-ai-model-router run claude --task "<task>" -- <claude args>
 - Claude model names use aliases: `haiku`, `sonnet`, `opus`, and `opusplan`.
 - Token-cost estimates use Tokenometer when a selected model maps cleanly to a known provider model.
 - The router analyzes JavaScript/TypeScript with Babel ASTs and Python with stdlib `ast`.
+- Gateway mode routes prompts entered through `ast-ai-model-router gateway`; it does not invisibly intercept an already-running Claude Code or Codex TUI.

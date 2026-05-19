@@ -69,6 +69,18 @@ Launch Claude Code with the selected alias:
 ast-ai-model-router run claude --task "plan a cross-module database migration" -- --permission-mode plan
 ```
 
+Route each prompt through a gateway session:
+
+```bash
+ast-ai-model-router gateway codex -- --sandbox workspace-write
+```
+
+Preview one gateway turn without launching an agent:
+
+```bash
+ast-ai-model-router gateway claude --once --task "write docs for this repo" --dry-run -- --permission-mode plan
+```
+
 ## CI And Team Policy
 
 Fail if a task would exceed the allowed tier:
@@ -96,6 +108,30 @@ ast-ai-model-router analyze --agent codex --task "write tests" --json
 ```
 
 The JSON includes `selectedModel`, `tier`, `confidence`, `signals`, `rationale`, `warnings`, `costEstimate`, `policy`, and `commandPreview`.
+
+## Per-Turn Gateway
+
+`run` chooses one model before launching a Claude Code or Codex session. `gateway` is different: it keeps a small router prompt open, scores every message you type, then invokes the selected agent model for that turn.
+
+```bash
+ast-ai-model-router gateway claude -- --permission-mode plan
+ast-ai-model-router gateway codex -- --sandbox workspace-write
+```
+
+Inside the gateway, type a prompt and press Enter. Use `/exit` or `/quit` to stop.
+
+For single-turn automation or CI smoke tests:
+
+```bash
+ast-ai-model-router gateway codex --once --task "add regression tests for parser errors" --dry-run
+```
+
+The gateway uses non-interactive agent execution:
+
+- Claude Code: `claude --print --model <selected-model> ... <prompt>`
+- Codex: `codex exec --model <selected-model> ... <prompt>`
+
+This is not an invisible hook inside an already-running Claude Code or Codex TUI. To route every turn, enter prompts through `ast-ai-model-router gateway ...`.
 
 ## How Routing Works
 
