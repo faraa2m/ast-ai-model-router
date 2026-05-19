@@ -1,5 +1,11 @@
 # @ast-ai-model-router/cli
 
+## 2.0.0
+
+### Major Changes
+
+- 4c000b9: Require Node.js 26 and run CI, release, and smoke workflows on Node 26.
+
 ## 1.1.0
 
 ### Minor Changes
