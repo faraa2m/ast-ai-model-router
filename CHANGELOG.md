@@ -1,5 +1,11 @@
 # @ast-ai-model-router/cli
 
+## 1.1.0
+
+### Minor Changes
+
+- 73b45ff: Add a per-turn gateway command for routing each Claude Code or Codex prompt through the model router before non-interactive agent execution.
+
 ## 1.0.0
 
 ### Major Changes
