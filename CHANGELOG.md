@@ -1,5 +1,11 @@
 # @ast-ai-model-router/cli
 
+## 2.0.1
+
+### Patch Changes
+
+- 9c80beb: Polish the repository's open-source project documentation and contributor guidance.
+
 ## 2.0.0
 
 ### Major Changes
