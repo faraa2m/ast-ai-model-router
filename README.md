@@ -245,6 +245,13 @@ This project is part of the [`faraa2m`](https://github.com/faraa2m) token-econom
 
 The router reads local source files to compute AST complexity and launches the local `claude` or `codex` CLI. It does not run a separate network service and does not upload source code. Any model traffic comes from the Claude Code or Codex CLI you choose to run.
 
+## Project Health
+
+- [Contributing guide](./CONTRIBUTING.md)
+- [Security policy](./SECURITY.md)
+- [Code of Conduct](./CODE_OF_CONDUCT.md)
+- [Changelog](./CHANGELOG.md)
+
 ## Status
 
 This is an explainable heuristic router. It is production-usable for policy and workflow guardrails, but it does not claim empirically proven model-quality optimization yet. Future releases can add outcome logging and calibration against real task success.
