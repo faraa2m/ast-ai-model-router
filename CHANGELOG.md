@@ -1,5 +1,11 @@
 # @ast-ai-model-router/cli
 
+## 2.0.2
+
+### Patch Changes
+
+- bba00dc: Add `version`, `--version`, and `-v` commands for reliable npx smoke checks.
+
 ## 2.0.1
 
 ### Patch Changes
