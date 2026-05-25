@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { mkdtemp, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
@@ -67,6 +67,16 @@ test("ci command fails with exit code 3 when policy is exceeded", async () => {
     ]),
     (error) => error.code === 3
   );
+});
+
+test("version command prints package version", async () => {
+  const packageJson = JSON.parse(await readFile(path.resolve("package.json"), "utf8"));
+  const { stdout } = await execFileAsync("node", [
+    path.resolve("bin/ast-ai-model-router.js"),
+    "--version"
+  ]);
+
+  assert.equal(stdout.trim(), packageJson.version);
 });
 
 test("gateway turn routes prompt and calls executor with selected model", async () => {

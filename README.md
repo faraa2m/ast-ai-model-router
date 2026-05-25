@@ -29,6 +29,7 @@ Run without installing:
 
 ```bash
 npx --yes --package @ast-ai-model-router/cli ast-ai-model-router --help
+npx --yes @ast-ai-model-router/cli --version
 ```
 
 ## Quick Start

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { spawn } from "node:child_process";
 import { access, writeFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { CONFIG_TEMPLATE, loadConfig, validateTier } from "../lib/config.js";
@@ -35,10 +36,20 @@ Options:
 const EXIT_INVALID = 2;
 const EXIT_POLICY = 3;
 
+function readPackageVersion() {
+  const packageJsonUrl = new URL("../package.json", import.meta.url);
+  const packageJson = JSON.parse(readFileSync(packageJsonUrl, "utf8"));
+  return packageJson.version ?? "0.0.0";
+}
+
 async function main() {
   const [command, maybeAgent, ...rest] = process.argv.slice(2);
   if (!command || command === "--help" || command === "-h") {
     process.stdout.write(HELP);
+    return;
+  }
+  if (command === "version" || command === "--version" || command === "-v") {
+    process.stdout.write(`${readPackageVersion()}\n`);
     return;
   }
 
