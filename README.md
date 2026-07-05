@@ -160,7 +160,7 @@ Examples:
 
 - Claude alias `haiku` maps to `claude-haiku-4-5`.
 - Claude alias `sonnet` maps to `claude-sonnet-4-6`.
-- Codex `gpt-5.4-mini` maps to Tokenometer model `gpt-5-mini`.
+- Codex `gpt-5.4-mini`, `gpt-5.4`, and `gpt-5.5` map to the matching Tokenometer model IDs.
 
 If a model cannot be mapped, routing still works and the decision includes a warning:
 
