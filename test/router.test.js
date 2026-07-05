@@ -49,6 +49,12 @@ test("adds tokenometer cost estimates when a model mapping exists", async () => 
   assert.equal(result.policy.passed, true);
 });
 
+test("maps current Codex defaults to concrete Tokenometer model ids", () => {
+  assert.equal(DEFAULT_CONFIG.modelMappings.codex["gpt-5.4-mini"], "gpt-5.4-mini");
+  assert.equal(DEFAULT_CONFIG.modelMappings.codex["gpt-5.4"], "gpt-5.4");
+  assert.equal(DEFAULT_CONFIG.modelMappings.codex["gpt-5.5"], "gpt-5.5");
+});
+
 test("ci command fails with exit code 3 when policy is exceeded", async () => {
   const dir = await mkdtemp(path.join(tmpdir(), "model-router-"));
   await writeFile(path.join(dir, "service.py"), "class Service:\n    def run(self, x):\n        if x:\n            return x\n        return None\n");
